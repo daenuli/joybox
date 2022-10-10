@@ -14,19 +14,6 @@ class CustomerTest extends TestCase
      *
      * @return void
      */
-    // public function test_that_base_endpoint_returns_a_successful_response()
-    // {
-    //     $this->get('/');
-
-    //     $this->assertEquals(
-    //         $this->app->version(), $this->response->getContent()
-    //     );
-    // }
-
-    // public function __construct()
-    // {
-    //     $this->remove_json_file();
-    // }
 
     /** @test */
     public function customer_signup()
@@ -58,8 +45,6 @@ class CustomerTest extends TestCase
     /** @test */
     public function customer_browse_book_list()
     {
-        // $this->remove_json_file();
-
         $user = User::orderBy('id', 'desc')->where('role', 'customer')->first();
         $this->actingAs($user)->get('api/books');
         $this->seeStatusCode(200);
@@ -68,8 +53,6 @@ class CustomerTest extends TestCase
     /** @test */
     public function customer_create_pickup_schedule()
     {
-        // $this->remove_json_file();
-
         $user = User::orderBy('id', 'desc')->where('role', 'customer')->first();
         $parameters = [
             'cover_id' => [3956527, 225568],
@@ -77,12 +60,5 @@ class CustomerTest extends TestCase
         ];
         $this->actingAs($user)->post('api/books', $parameters, []);
         $this->seeStatusCode(200);
-    }
-
-    public function remove_json_file()
-    {
-        if (file_exists('./books.json')) {
-            unlink('./books.json');
-        }
     }
 }
